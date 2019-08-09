@@ -8,5 +8,7 @@ REQUIREMENTS:
     
 HOW TO USE:
   While in directory with photoManager.py make folder named 'photos'
+  
   Move photos you wanna organize into this directory
+  
   Run the python program and enjoy
