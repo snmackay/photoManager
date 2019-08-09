@@ -52,9 +52,10 @@ def renameFileOOF(file):
     if("IMG_") in file:
         file2=file.split("_")
         yearNums=file2[1]
-        year="Year-"+yearNums[0][1][2][3]+"_"+yearNums[4][5]+"_"+yearNums[6][7]
+        year="Year-"+yearNums[0:4]+"_"+yearNums[4:6]+"_"+yearNums[6:8]
         year2=year+" Time-"+file2[2]
-        return year2
+        os.rename(file,year2+".jpg")
+        return year2+".jpg"
     else :
         file2=file.split("_")
         print(file2)
@@ -62,7 +63,7 @@ def renameFileOOF(file):
             yearNums=file2[0]
             print(yearNums)
             print(len(yearNums))
-            year="Year-"+yearNums[0][1][2][3]+"_"+yearNums[4][5]+"_"+yearNums[6][7]
+            year="Year-"+yearNums[0:4]+"_"+yearNums[4:6]+"_"+yearNums[6:8]
             if(file2[1].isnumeric()):
                 year2=year+" Time-"+file2[1]
                 year2=year2+file2[1]
@@ -100,6 +101,8 @@ def storePhoto(newfile):
     months['12']="December"
 
     #create year directory
+    print(newfile)
+    print(month)
     newPath=os.path.join(currentPath,year,months[month])
     try:
         os.makedirs(newPath)
