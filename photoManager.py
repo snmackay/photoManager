@@ -48,6 +48,7 @@ def genFileList(directory):
 #_______________________________________________________________________________
 #for files without exif data
 #renames files that are being passed in
+#cases handled: IMG_, yearmonthday_rando.jpg
 def renameFileOOF(file):
     if("IMG_") in file:
         file2=file.split("_")
@@ -56,7 +57,6 @@ def renameFileOOF(file):
         year2=year+" Time-"+file2[2]
         os.rename(file,year2+".jpg")
         print("if1")
-        return year2+".jpg"
     else :
         file2=file.split("_")
         print(file2)
@@ -67,14 +67,12 @@ def renameFileOOF(file):
                 year2=year+" Time-"+file2[1]
                 year2=year2+file2[1]
                 os.rename(file,year2+".jpg")
-                return year2+".jpg"
+
             else:
                 year2=year+" Time-"+file2[1]
                 year2=year2+file2[1]
                 os.rename(file,year2+".jpg")
-                return year2+".jpg"
-        else:
-            return "Other"+file
+
 
 #_______________________________________________________________________________
 
@@ -126,9 +124,16 @@ def main(directory):
     for file in photoFiles:
         print(file)
         #date=getFileDate(file)
-        newfile=renameFileOOF(file)
+        renameFileOOF(file)
 
-        storePhoto(newfile)
+    #regather file names from the directory before the files are relocated. ONLY
+    #move files that are named correctly
+    newFiles=genFileList(directory)
+    for file in newFiles:
+        if "Year" in file and "Month" in file:
+            storePhoto(file)
+        else:
+            continue
 
 
 #_______________________________________________________________________________
